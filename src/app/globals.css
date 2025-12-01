@@ -1,0 +1,134 @@
+@import "tailwindcss";
+
+/* ---------------------------
+   color tokens (keep yours)
+   --------------------------- */
+:root {
+  --background: #0a0a0a;
+  --foreground: #321d7d;
+}
+
+/* existing styles you had (keep them) */
+/* ... your existing CSS from before ... */
+
+/* ---------------------------
+   Custom keyframes & classes
+   --------------------------- */
+/* Info panel tweaks (put near other custom classes) */
+.hero-info {
+  backdrop-filter: blur(6px);
+  background: rgba(0, 0, 0, 0.6);
+}
+
+/* Ensure clickable full-image buttons don't show default button styles */
+section button[aria-label] {
+  border: none;
+  padding: 0;
+  background: none;
+}
+
+@keyframes slideUpFade {
+  0% { opacity: 0; transform: translateY(18px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeIn {
+  0% { opacity: 0; }
+  100% { opacity: 1; }
+}
+
+@keyframes navEntry {
+  0% { transform: translateY(-8px); opacity: 0; }
+  100% { transform: translateY(0); opacity: 1; }
+}
+
+@keyframes footerReveal {
+  0% { opacity: 0; transform: translateY(12px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes floatUp {
+  0% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+  100% { transform: translateY(0); }
+}
+
+@keyframes pulseSlow {
+  0% { transform: scale(1); box-shadow: 0 6px 20px rgba(255,0,0,0.12); }
+  50% { transform: scale(1.03); box-shadow: 0 18px 40px rgba(255,0,0,0.08); }
+  100% { transform: scale(1); box-shadow: 0 6px 20px rgba(255,0,0,0.12); }
+}
+
+/* animation utility classes */
+.animate-slide-up { animation: slideUpFade 700ms cubic-bezier(.2,.9,.2,1) both; }
+.animate-fade-in-2 { animation: fadeIn 1000ms ease both 150ms; }
+.animate-nav-entry { animation: navEntry 600ms ease both; }
+.animate-footer-reveal { animation: footerReveal 900ms ease both; }
+.animate-card-reveal { animation: fadeIn 700ms ease both; }
+.animate-cta { animation: pulseSlow 2200ms ease-in-out infinite; }
+
+/* subtle button pulse for donate — better UX than aggressive pulse */
+.donate-btn {
+  animation: pulseSlow 3s ease-in-out  infinite; 
+  border-radius: 9999px; 
+  background-color: rgb(197, 255, 189);
+}
+
+/* small helper delays (Tailwind doesn't include these natively in CSS) */
+.delay-100 { animation-delay: 100ms; }
+.delay-200 { animation-delay: 200ms; }
+
+/* text justification helper (if you use .justify-text in paragraphs) */
+.justify-text { text-align: justify; }
+
+/* Respect user preference for reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .animate-slide-up,
+  .animate-fade-in-2,
+  .animate-nav-entry,
+  .animate-footer-reveal,
+  .animate-card-reveal,
+  .animate-cta,
+  .donate-btn {
+    animation: none !important;
+    transition: none !important;
+  }
+}
+
+/* Accessibility: focus rings for keyboard users */
+a:focus, button:focus {
+  outline: 10px solid rgba(121, 33, 33, 0.212);
+  outline-offset: 2px;
+}
+
+/* small polish: smoother transforms */
+* {
+  will-change: transform, opacity;
+}
+ h2{ 
+  color: rgb(57, 229, 241);
+   font-size:150%;
+    font-weight: bolder;
+ 
+    
+   }
+strong{ 
+    color: rgb(255, 254, 253);
+   }
+p{ 
+  color: rgb(70, 200, 233);
+ } 
+li{ 
+  color: rgb(243, 242, 245);
+   border-radius: 0vmax;
+   }
+   
+   h1{
+     color: #ffae36;
+     font-size: xx-large;
+     font-display: block;
+     }
+     btn{
+      color:rgb(255, 51, 0);
+      font-size: xx-large;
+     }
