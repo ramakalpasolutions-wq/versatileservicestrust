@@ -3,31 +3,42 @@ import { useState } from "react";
 
 export default function ContactPage() {
   const [form, setForm] = useState({
-    firstName: "",
-    lastName: "",
+    name: "",
     email: "",
+    countryCode: "+91",
+    phone: "",
     message: "",
   });
+
   const [errors, setErrors] = useState({});
   const [status, setStatus] = useState("idle"); // idle | sending | success | error
 
   function validate() {
     const e = {};
-    if (!form.message.trim()) e.message = "Please enter your message.";
+
+    if (!form.name.trim()) e.name = "Full name is required.";
+
     if (!form.email.trim()) {
       e.email = "Email is required.";
     } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email)) {
       e.email = "Please enter a valid email.";
     }
-    if (!form.firstName.trim()) e.firstName = "First name required.";
+
+    if (!form.phone.trim()) e.phone = "Phone number required.";
+
+    if (!form.message.trim()) e.message = "Please enter your message.";
+
     return e;
   }
 
   async function handleSubmit(ev) {
     ev.preventDefault();
+
     const e = validate();
     setErrors(e);
+
     if (Object.keys(e).length) return;
+
     setStatus("sending");
 
     try {
@@ -40,7 +51,16 @@ export default function ContactPage() {
       if (!res.ok) throw new Error("Network response not ok");
 
       setStatus("success");
-      setForm({ firstName: "", lastName: "", email: "", message: "" });
+
+      // Reset form
+      setForm({
+        name: "",
+        email: "",
+        countryCode: "+91",
+        phone: "",
+        message: "",
+      });
+
       setErrors({});
     } catch (err) {
       console.error("❌ Submission error:", err);
@@ -70,13 +90,25 @@ export default function ContactPage() {
       <section className="py-12 px-4">
         <div className="max-w-6xl mx-auto bg-black/40 rounded-2xl p-8 md:p-12 shadow-xl">
           <div className="grid md:grid-cols-2 gap-10">
+
+            {/* LEFT SIDE */}
             <div className="space-y-6">
               <h2 className="text-3xl md:text-4xl font-extrabold text-orange-400">Get in touch</h2>
               <p className="text-sm text-yellow-200">
                 For enquiries, donations or volunteer information — send us a message below.
               </p>
+
+              <div className="mt-4 space-y-1 text-yellow-100 text-sm">
+                <p className="font-semibold text-orange-300">📍 Our Address</p>
+                <p>Versatile Services Trust</p>
+                <p>23-5-119/1, Naidupet 1st Line</p>
+                <p>Guntur, Andhra Pradesh – 522004</p>
+                <p>📞 Phone: +91 63010 12414</p>
+                <p>✉ Email: info@versatileservicestrust.org</p>
+              </div>
             </div>
 
+            {/* RIGHT SIDE FORM */}
             <div>
               <h3 className="text-2xl font-semibold mb-4">Message us</h3>
 
@@ -94,23 +126,18 @@ export default function ContactPage() {
               )}
 
               <form onSubmit={handleSubmit} className="space-y-4" noValidate>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <input
-                    name="firstName"
-                    value={form.firstName}
-                    onChange={handleChange}
-                    placeholder="First Name"
-                    className="w-full rounded-md bg-white/5 border border-white/10 px-3 py-2 text-slate-100 focus:ring-2 focus:ring-white/10"
-                  />
-                  <input
-                    name="lastName"
-                    value={form.lastName}
-                    onChange={handleChange}
-                    placeholder="Last Name"
-                    className="w-full rounded-md bg-white/5 border border-white/10 px-3 py-2 text-slate-100 focus:ring-2 focus:ring-white/10"
-                  />
-                </div>
 
+                {/* Full Name */}
+                <input
+                  name="name"
+                  value={form.name}
+                  onChange={handleChange}
+                  placeholder="Full Name"
+                  className="w-full rounded-md bg-white/5 border border-white/10 px-3 py-2 text-slate-100 focus:ring-2 focus:ring-white/10"
+                />
+                {errors.name && <p className="text-red-400 text-sm">{errors.name}</p>}
+
+                {/* Email */}
                 <input
                   name="email"
                   type="email"
@@ -119,7 +146,29 @@ export default function ContactPage() {
                   placeholder="Email"
                   className="w-full rounded-md bg-white/5 border border-white/10 px-3 py-2 text-slate-100 focus:ring-2 focus:ring-white/10"
                 />
+                {errors.email && <p className="text-red-400 text-sm">{errors.email}</p>}
 
+                {/* Phone */}
+                <div className="grid grid-cols-3 gap-3">
+                  <input
+                    name="countryCode"
+                    value={form.countryCode}
+                    onChange={handleChange}
+                    placeholder="+91"
+                    className="w-full rounded-md bg-white/5 border border-white/10 px-3 py-2 text-slate-100 focus:ring-2 focus:ring-white/10"
+                  />
+
+                  <input
+                    name="phone"
+                    value={form.phone}
+                    onChange={handleChange}
+                    placeholder="Phone Number"
+                    className="col-span-2 rounded-md bg-white/5 border border-white/10 px-3 py-2 text-slate-100 focus:ring-2 focus:ring-white/10"
+                  />
+                </div>
+                {errors.phone && <p className="text-red-400 text-sm">{errors.phone}</p>}
+
+                {/* Message */}
                 <textarea
                   name="message"
                   value={form.message}
@@ -128,7 +177,9 @@ export default function ContactPage() {
                   placeholder="Message"
                   className="w-full rounded-md bg-white/5 border border-white/10 px-3 py-2 text-slate-100 focus:ring-2 focus:ring-white/10"
                 />
+                {errors.message && <p className="text-red-400 text-sm">{errors.message}</p>}
 
+                {/* Submit Button */}
                 <button
                   type="submit"
                   disabled={status === "sending"}
@@ -136,6 +187,7 @@ export default function ContactPage() {
                 >
                   {status === "sending" ? "Sending..." : "Submit"}
                 </button>
+
               </form>
             </div>
           </div>

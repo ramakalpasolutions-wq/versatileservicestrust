@@ -1,43 +1,43 @@
+import { NextResponse } from "next/server";
 import nodemailer from "nodemailer";
 
 export async function POST(req) {
   try {
-    const { firstName, lastName, email, message } = await req.json();
+    const { name, email, countryCode, phone, message } = await req.json();
 
-    if (!firstName || !email || !message) {
-      return new Response(JSON.stringify({ error: "Missing required fields" }), { status: 400 });
+    if (!name || !email || !message) {
+      return NextResponse.json({ success: false, error: "Missing fields" }, { status: 400 });
     }
 
-    // ✅ Gmail transporter with TLS fix
     const transporter = nodemailer.createTransport({
       service: "gmail",
       auth: {
         user: process.env.EMAIL_USER,
         pass: process.env.EMAIL_PASS,
       },
-      tls: {
-        // <— This allows self-signed certificates (fixes "self-signed" error)
-        rejectUnauthorized: false,
-      },
     });
 
-    await transporter.sendMail({
+    const mailOptions = {
       from: process.env.EMAIL_USER,
-      to: "akrishtej@gmail.com", // your receiving email
-      subject: `New Contact Form Submission from ${firstName}`,
+      to: process.env.EMAIL_USER,
+      subject: `New Contact Message from ${name}`,
       text: `
-Name: ${firstName} ${lastName}
+You received a new message from your website:
+
+Name: ${name}
 Email: ${email}
+Phone: ${countryCode} ${phone}
 
 Message:
 ${message}
       `,
-    });
+    };
 
-    console.log("✅ Email sent successfully");
-    return new Response(JSON.stringify({ ok: true }), { status: 200 });
-  } catch (err) {
-    console.error("❌ Email failed:", err);
-    return new Response(JSON.stringify({ error: err.message }), { status: 500 });
+    await transporter.sendMail(mailOptions);
+    return NextResponse.json({ success: true });
+
+  } catch (error) {
+    console.error("❌ Email send error:", error);
+    return NextResponse.json({ success: false, error: error.message }, { status: 500 });
   }
 }
