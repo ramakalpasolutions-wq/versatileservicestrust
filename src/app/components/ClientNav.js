@@ -20,13 +20,32 @@ export default function ClientNav() {
           alt="Logo"
         />
 
-        <a
-          href="/"
-          className="text-lg sm:text-xl font-semibold text-blue-700 hidden sm:inline-block"
-        >
-          Versatile Services Trust
-        </a>
+       <a
+  href="/"
+  className="
+    text-lg sm:text-xl font-semibold text-white 
+    bg-gradient-to-r from-[#0a0a0a]/40 via-[#285289]/60 to-[#0a0a0a]/40
+    px-4 py-1 rounded-md backdrop-blur-sm border border-white/10
+    hidden sm:inline-block
+  "
+>
+  Versatile Services Trust
+</a>
+
       </div>
+      {/* SITE NAME — MOBILE ONLY */}
+<a
+  href="/"
+  className="
+    text-sm font-semibold text-white 
+    bg-gradient-to-r from-[#0a0a0a]/40 via-[#285289]/60 to-[#0a0a0a]/40
+    px-3 py-1 rounded-md backdrop-blur-sm border border-white/10
+    sm:hidden     /* hide on tablet & desktop */
+  "
+>
+  Versatile Services Trust
+</a>
+
 
       {/* RIGHT SECTION — DESKTOP NAV */}
       <div className="hidden lg:flex items-center space-x-6 text-white">
@@ -94,13 +113,20 @@ export default function ClientNav() {
           <a href="/gallery" className="py-2 px-3 hover:bg-white/5" onClick={() => setMobileOpen(false)}>Gallery</a>
           <a href="/contact" className="py-2 px-3 hover:bg-white/5" onClick={() => setMobileOpen(false)}>Contact</a>
 
-          <a
-            href="/donate"
-            className="mt-2 py-2 px-3 rounded bg-red-500 text-black text-center font-semibold hover:brightness-110"
-            onClick={() => setMobileOpen(false)}
-          >
-            Donate
-          </a>
+         <a
+  href="/donate"
+  className="
+    mt-2 py-2 px-4 
+    rounded-full 
+    bg-[#c5ffbd] 
+    text-black text-center font-semibold 
+    hover:brightness-110
+  "
+  onClick={() => setMobileOpen(false)}
+>
+  Donate
+</a>
+
         </div>
       </div>
     </nav>

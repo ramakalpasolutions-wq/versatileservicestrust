@@ -154,8 +154,18 @@ export default function HomePage() {
       </section>
 
       {/* TITLE */}
-      <div className="mt-6 text-center max-w-3xl mx-auto">
-        <h1 className="text-4xl font-extrabold">Versatile Service Trust</h1>
+      <div className="mt-6 text-center max-w-3xl mx-auto ">
+      <h1
+  className="
+    text-sm font-semibold
+    bg-gradient-to-r from-[#0a0a0a]/40 via-[#285289]/60 to-[#0a0a0a]/40
+    px-3 py-1 rounded-md backdrop-blur-sm border border-white/10
+    transform transition-transform duration-300 hover:scale-110
+  "
+>
+  Versatile Service Trust
+</h1>
+
         <p className="text-lg text-slate-300">
           We are dedicated to helping communities through welfare, charity, and humanitarian support.
         </p>

@@ -71,7 +71,7 @@ section button[aria-label] {
 .donate-btn {
   animation: pulseSlow 3s ease-in-out  infinite; 
   border-radius: 9999px; 
-  background-color: rgb(197, 255, 189);
+  background-color: #c5ffbd;
 }
 
 /* small helper delays (Tailwind doesn't include these natively in CSS) */
@@ -124,9 +124,10 @@ li{
    }
    
    h1{
-     color: #ffae36;
+     color: white;
      font-size: xx-large;
      font-display: block;
+     
      }
      btn{
       color:rgb(255, 51, 0);
